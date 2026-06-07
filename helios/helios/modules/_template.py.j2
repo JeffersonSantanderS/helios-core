@@ -1,0 +1,29 @@
+"""Helios module: {{MODULE_NAME}} - {{DESCRIPTION}}."""
+from __future__ import annotations
+from typing import Any
+from .base import BaseMod
+
+
+class {{CLASS_NAME}}(BaseMod):
+    """{{DESCRIPTION}}"""
+
+    MODULE_MANIFEST = {
+        **BaseMod.MODULE_MANIFEST,
+        "name": "{{MODULE_SLUG}}",
+        "version": "1.0.0",
+        "description": "{{DESCRIPTION}}",
+        "author": "helios",
+        "collectors": [],
+        "dependencies": [],
+        "priority": 10,
+    }
+
+    def tick(self) -> dict[str, Any]:
+        """Run one data-collection pass."""
+        return {
+            "status": "ok",
+            "message": "{{MODULE_NAME}} module alive, no collectors configured.",
+        }
+
+    def health(self) -> dict[str, Any]:
+        return {"status": "healthy", "name": self.name}

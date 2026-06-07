@@ -1,0 +1,71 @@
+{
+  "day_label": "normal_workday",
+  "date": "2026-05-26",
+  "timezone": "America/Edmonton",
+  "description": "Typical workday with normal sleep, worksite presence, Spotify session, and calendar task.",
+  "sleep_hours": 7.5,
+  "sleep_quality": "good",
+  "location": {
+    "zone_label": "worksite",
+    "city": "home_city",
+    "is_home": false,
+    "source": "home_assistant",
+    "last_updated": "2026-05-26T07:30:00-06:00",
+    "stale": false
+  },
+  "spotify": {
+    "session_active": true,
+    "total_minutes": 45,
+    "source": "spotify_poller",
+    "last_updated": "2026-05-26T08:15:00-06:00"
+  },
+  "calendar": {
+    "events": [
+      {
+        "title": "Team standup",
+        "start": "2026-05-26T08:00:00-06:00",
+        "duration_min": 15
+      }
+    ],
+    "source": "home_assistant",
+    "stale": false
+  },
+  "health": {
+    "sleep_hours": 7.5,
+    "resting_hr": 62,
+    "score": 0.82,
+    "label": "good",
+    "source": "apple_health_bridge",
+    "last_updated": "2026-05-26T06:00:00-06:00"
+  },
+  "work_hours": {
+    "workday_likely": true,
+    "start_time": "07:00",
+    "pay_period_due": false
+  },
+  "home": {
+    "occupied": false,
+    "lights_on_count": 0,
+    "anyone_home": false
+  },
+  "candidates": [
+    {
+      "rule_id": "sleep_ok_workday",
+      "title": "Ready for work",
+      "message": "Sleep 7.5h, workday likely.",
+      "evidence": ["Sleep 7.5h", "Workday likely"],
+      "confidence": 0.8,
+      "freshness": {"health_secs": 3600, "location_secs": 1800},
+      "priority_hint": "info",
+      "privacy_class": "private_summary",
+      "suggested_action": "dashboard_only"
+    }
+  ],
+  "expected_outcomes": [
+    {
+      "candidate_fingerprint": "sleep_ok_workday:good:workday",
+      "outcome_type": "useful",
+      "reason": "Accurate summary, non-intrusive"
+    }
+  ]
+}

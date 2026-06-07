@@ -1,0 +1,9 @@
+# Dev/test dependencies — also available via: pip install -e ".[dev,dashboard,collectors]"
+pytest
+pytest-asyncio
+pytest-timeout
+pytest-xdist
+fastapi
+httpx
+watchdog
+spotipy

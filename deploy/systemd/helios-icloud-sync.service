@@ -1,0 +1,24 @@
+[Unit]
+Description=Helios v6 — iCloud sync (calendars, reminders, contacts, notes)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -m helios.collectors.icloud_sync
+WorkingDirectory=%h/.hermes/helios-v6/helios
+Restart=on-failure
+RestartSec=30
+
+# Environment — runtime paths
+Environment=HELIOS_HOME=%h/.hermes/helios
+Environment=PYTHONPATH=%h/.hermes/helios-v6/helios
+Environment=PYTHONUNBUFFERED=1
+
+# ─── IMPORTANT ─────────────────────────────────────────────
+# Do NOT store secrets (iCloud credentials, app-specific
+# passwords, tokens) in this unit file.  pyicloud uses
+# keyring or cookie_directory for session persistence.
+# ────────────────────────────────────────────────────────────
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main, feat/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: helios
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package with all extras
+        run: pip install -e ".[dev,dashboard,collectors]"
+
+      - name: Run tests
+        run: PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider

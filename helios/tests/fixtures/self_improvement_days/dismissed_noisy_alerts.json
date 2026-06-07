@@ -1,0 +1,86 @@
+{
+  "day_label": "dismissed_noisy_alerts",
+  "date": "2026-05-23",
+  "timezone": "America/Edmonton",
+  "description": "Repeated dismissed candidate fingerprint; Helios should learn to suppress or lower priority.",
+  "sleep_hours": 6.5,
+  "location": {
+    "zone_label": "home",
+    "city": "home_city",
+    "is_home": true,
+    "source": "home_assistant",
+    "last_updated": "2026-05-23T07:00:00-06:00",
+    "stale": false
+  },
+  "spotify": {
+    "session_active": true,
+    "total_minutes": 120,
+    "source": "spotify_poller",
+    "last_updated": "2026-05-23T07:25:00-06:00",
+    "stale": false
+  },
+  "calendar": {
+    "events": [],
+    "source": "home_assistant",
+    "stale": false
+  },
+  "health": {
+    "sleep_hours": 6.5,
+    "resting_hr": 60,
+    "score": 0.75,
+    "label": "good",
+    "source": "apple_health_bridge",
+    "last_updated": "2026-05-23T06:00:00-06:00",
+    "stale": false
+  },
+  "work_hours": {
+    "workday_likely": true,
+    "start_time": "08:00",
+    "pay_period_due": false
+  },
+  "home": {
+    "occupied": true,
+    "lights_on_count": 0,
+    "anyone_home": true
+  },
+  "candidates": [
+    {
+      "rule_id": "gaming_focus_late_night",
+      "title": "Late-night focus session",
+      "message": "Gaming/streaming session after 23:00.",
+      "evidence": ["High focus activity 23:00-01:00"],
+      "confidence": 0.55,
+      "freshness": {},
+      "priority_hint": "info",
+      "privacy_class": "private_summary",
+      "suggested_action": "dashboard_only"
+    },
+    {
+      "rule_id": "gaming_focus_late_night",
+      "title": "Late-night focus session",
+      "message": "Gaming/streaming session after 23:00.",
+      "evidence": ["High focus activity 23:00-01:00"],
+      "confidence": 0.55,
+      "priority_hint": "info",
+      "privacy_class": "private_summary",
+      "suggested_action": "dashboard_only"
+    }
+  ],
+  "expected_outcomes": [
+    {
+      "candidate_fingerprint": "gaming_focus_late_night",
+      "outcome_type": "dismissed",
+      "reason": "User dismissed twice in 3 days"
+    },
+    {
+      "candidate_fingerprint": "gaming_focus_late_night",
+      "outcome_type": "dismissed",
+      "reason": "User dismissed again same window"
+    },
+    {
+      "candidate_fingerprint": "gaming_focus_late_night",
+      "outcome_type": "duplicate_suppressed",
+      "reason": "Duplicate fingerprint suppressed by dedupe"
+    }
+  ]
+}

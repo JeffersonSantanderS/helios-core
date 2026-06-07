@@ -1,0 +1,58 @@
+{
+  "day_label": "stale_collectors",
+  "date": "2026-05-24",
+  "timezone": "America/Edmonton",
+  "description": "Day where all major collectors are stale. Helios must say unknown, not invent data.",
+  "sleep_hours": null,
+  "location": {
+    "zone_label": "unknown",
+    "city": "Unknown",
+    "is_home": null,
+    "source": "home_assistant",
+    "last_updated": "2026-05-23T22:00:00-06:00",
+    "stale": true,
+    "stale_secs": 36000
+  },
+  "spotify": {
+    "session_active": false,
+    "total_minutes": 0,
+    "source": "spotify_poller",
+    "last_updated": "2026-05-23T21:00:00-06:00",
+    "stale": true,
+    "stale_secs": 39600
+  },
+  "calendar": {
+    "events": [],
+    "source": "home_assistant",
+    "stale": true,
+    "stale_secs": 43200
+  },
+  "health": {
+    "sleep_hours": null,
+    "resting_hr": null,
+    "score": null,
+    "label": "unknown",
+    "source": "apple_health_bridge",
+    "last_updated": "2026-05-23T20:00:00-06:00",
+    "stale": true,
+    "stale_secs": 46800
+  },
+  "work_hours": {
+    "workday_likely": "unknown",
+    "start_time": null,
+    "pay_period_due": false
+  },
+  "home": {
+    "occupied": "unknown",
+    "lights_on_count": null,
+    "anyone_home": "unknown"
+  },
+  "candidates": [],
+  "expected_outcomes": [
+    {
+      "candidate_fingerprint": "stale_data_banner",
+      "outcome_type": "stale_data",
+      "reason": "All sources stale; Helios should surface collector health"
+    }
+  ]
+}

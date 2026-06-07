@@ -1,0 +1,11 @@
+[Unit]
+Description=Timer for Helios iCloud sync — runs every 30 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=30min
+AccuracySec=2min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

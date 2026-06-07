@@ -1,0 +1,71 @@
+{
+  "day_label": "low_sleep_workday",
+  "date": "2026-05-26",
+  "timezone": "America/Edmonton",
+  "description": "Workday after less than 5 hours of sleep. No raw health sample payloads.",
+  "sleep_hours": 4.2,
+  "sleep_quality": "poor",
+  "location": {
+    "zone_label": "worksite",
+    "city": "home_city",
+    "is_home": false,
+    "source": "home_assistant",
+    "last_updated": "2026-05-26T07:15:00-06:00",
+    "stale": false
+  },
+  "spotify": {
+    "session_active": false,
+    "total_minutes": 0,
+    "source": "spotify_poller",
+    "last_updated": "2026-05-26T06:30:00-06:00"
+  },
+  "calendar": {
+    "events": [
+      {
+        "title": "Early site check",
+        "start": "2026-05-26T07:00:00-06:00",
+        "duration_min": 30
+      }
+    ],
+    "source": "home_assistant",
+    "stale": false
+  },
+  "health": {
+    "sleep_hours": 4.2,
+    "resting_hr": 78,
+    "score": 0.41,
+    "label": "poor",
+    "source": "apple_health_bridge",
+    "last_updated": "2026-05-26T06:00:00-06:00"
+  },
+  "work_hours": {
+    "workday_likely": true,
+    "start_time": "07:00",
+    "pay_period_due": false
+  },
+  "home": {
+    "occupied": false,
+    "lights_on_count": 0,
+    "anyone_home": false
+  },
+  "candidates": [
+    {
+      "rule_id": "sleep_workday_fatigue",
+      "title": "Fatigue risk before work",
+      "message": "Sleep 4.2h, early work start.",
+      "evidence": ["Sleep 4.2h", "Workday likely", "Early event 07:00"],
+      "confidence": 0.75,
+      "freshness": {"health_secs": 4500, "calendar_secs": 300},
+      "priority_hint": "p2",
+      "privacy_class": "private_summary",
+      "suggested_action": "draft"
+    }
+  ],
+  "expected_outcomes": [
+    {
+      "candidate_fingerprint": "sleep_workday_fatigue:poor:early",
+      "outcome_type": "accepted",
+      "reason": "User acknowledged fatigue prompt"
+    }
+  ]
+}

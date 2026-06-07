@@ -1,0 +1,22 @@
+[Unit]
+Description=Helios Dashboard — read-only local visibility layer
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/jefferson/.hermes/hermes-agent/venv/bin/python3 -m helios.dashboard.app
+WorkingDirectory=%h/.hermes/helios-v6/helios
+Restart=on-failure
+RestartSec=5
+
+# Environment — HELIOS_HOME points to the data directory
+Environment=HELIOS_HOME=%h/.hermes/helios
+Environment=PYTHONPATH=%h/.hermes/helios-v6/helios
+Environment=PYTHONUNBUFFERED=1
+
+# Security — bind to localhost only, no root needed
+# The app binds to 127.0.0.1:8199 by default
+# Do NOT change the bind address to 0.0.0.0 without authentication
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,25 @@
+[Unit]
+Description=Helios v6 — autonomous life-management daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -m helios.main daemon
+WorkingDirectory=%h/.hermes/helios-v6/helios
+Restart=on-failure
+RestartSec=10
+
+# Environment — runtime paths
+Environment=HELIOS_HOME=%h/.hermes/helios
+Environment=PYTHONPATH=%h/.hermes/helios-v6/helios
+Environment=PYTHONUNBUFFERED=1
+
+# ─── IMPORTANT ─────────────────────────────────────────────
+# Do NOT store secrets (API keys, passwords, tokens) in this
+# unit file.  Use Environment= files under ~/.config/environment.d/
+# or a separate credential store.  Secrets in unit files are
+# visible to any user with `systemctl show`.
+# ────────────────────────────────────────────────────────────
+
+[Install]
+WantedBy=default.target

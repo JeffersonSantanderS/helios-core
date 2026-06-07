@@ -1,0 +1,113 @@
+{
+  "day_label": "duplicate_notification_risk",
+  "date": "2026-05-22",
+  "timezone": "America/Edmonton",
+  "description": "Multiple identical candidate fingerprints in one tick. Only one dispatch; others suppressed.",
+  "sleep_hours": 6.0,
+  "location": {
+    "zone_label": "worksite",
+    "city": "home_city",
+    "is_home": false,
+    "source": "home_assistant",
+    "last_updated": "2026-05-22T07:00:00-06:00",
+    "stale": false
+  },
+  "spotify": {
+    "session_active": true,
+    "total_minutes": 15,
+    "source": "spotify_poller",
+    "last_updated": "2026-05-22T07:10:00-06:00",
+    "stale": false
+  },
+  "calendar": {
+    "events": [
+      {
+        "title": "Safety briefing",
+        "start": "2026-05-22T08:00:00-06:00",
+        "duration_min": 20
+      }
+    ],
+    "source": "home_assistant",
+    "stale": false
+  },
+  "health": {
+    "sleep_hours": 6.0,
+    "resting_hr": 68,
+    "score": 0.6,
+    "label": "fair",
+    "source": "apple_health_bridge",
+    "last_updated": "2026-05-22T06:00:00-06:00",
+    "stale": false
+  },
+  "work_hours": {
+    "workday_likely": true,
+    "start_time": "07:30",
+    "pay_period_due": true
+  },
+  "home": {
+    "occupied": false,
+    "lights_on_count": 0,
+    "anyone_home": false
+  },
+  "candidates": [
+    {
+      "fingerprint": "work_hours_review_nudge:pay_due:worksite",
+      "rule_id": "work_hours_review_nudge",
+      "title": "Pay period due soon",
+      "message": "Pay period ends today. You are at a worksite.",
+      "evidence": ["Worksite cluster", "Pay period due"],
+      "confidence": 0.72,
+      "priority_hint": "p2",
+      "privacy_class": "private_summary",
+      "suggested_action": "draft"
+    },
+    {
+      "fingerprint": "work_hours_review_nudge:pay_due:worksite",
+      "rule_id": "work_hours_review_nudge",
+      "title": "Pay period due soon",
+      "message": "Pay period ends today. You are at a worksite.",
+      "evidence": ["Worksite cluster", "Pay period due"],
+      "confidence": 0.72,
+      "priority_hint": "p2",
+      "privacy_class": "private_summary",
+      "suggested_action": "draft"
+    },
+    {
+      "fingerprint": "work_hours_review_nudge:pay_due:worksite",
+      "rule_id": "work_hours_review_nudge",
+      "title": "Pay period due soon",
+      "message": "Pay period ends today. You are at a worksite.",
+      "evidence": ["Worksite cluster", "Pay period due"],
+      "confidence": 0.72,
+      "priority_hint": "p2",
+      "privacy_class": "private_summary",
+      "suggested_action": "draft"
+    }
+  ],
+  "expected_outcomes": [
+    {
+      "candidate_fingerprint": "work_hours_review_nudge:pay_due:worksite",
+      "outcome_type": "accepted",
+      "reason": "Dispatched once via ChannelRouter"
+    },
+    {
+      "candidate_fingerprint": "work_hours_review_nudge:pay_due:worksite",
+      "outcome_type": "duplicate_suppressed",
+      "reason": "Duplicate fingerprint suppressed in same window"
+    },
+    {
+      "candidate_fingerprint": "work_hours_review_nudge:pay_due:worksite",
+      "outcome_type": "duplicate_suppressed",
+      "reason": "Duplicate fingerprint suppressed in same window"
+    }
+  ],
+  "events": [
+    {
+      "fingerprint": "work_hours_review_nudge:pay_due:worksite",
+      "dispatched_at": "2026-05-22T07:05:00-06:00",
+      "route": "matrix",
+      "channel": "matrix",
+      "success": true
+    }
+  ]
+}

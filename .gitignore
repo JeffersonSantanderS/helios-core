@@ -1,0 +1,77 @@
+# ─── Python ────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+*.whl
+
+# ─── Virtual environments ─────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ─── Secrets and credentials (NEVER commit) ────────────────────────────────
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+token.json
+oauth_state.json
+spotify_creds.json
+
+# ─── iCloud session cookies ───────────────────────────────────────────────
+.icloud_session/
+
+# ─── Runtime state (privacy: never commit personal data) ──────────────────
+*.db
+*.sqlite
+*.sqlite3
+*.log
+state/
+logs/
+helios/data/
+helios/brain.db
+helios_v4/
+
+# ── Stable exports (contain personal context) ──────────────────────────────
+context_export.json
+latest_status.json
+alerts_recent.json
+brain_state.json
+channel_log.jsonl
+
+# ── Config with secrets ────────────────────────────────────────────────────
+helios/config/config.yaml
+**/config.local.yaml
+**/config.local.yml
+
+# ── Allow example config ──────────────────────────────────────────────────
+!.gitignore
+!helios/config/config.example.yaml
+
+# ─── IDE / editor / OS ──────────────────────────────────────────────────────
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+
+# ─── Project-specific exclusions ───────────────────────────────────────────
+ANALYSIS.md
+HELIOS_PRIORITY_ENGINE_PLAN.md
+HELIOS_DREAM_ENGINE_ROADMAP.md
+CLAUDE.md
+GEMINI.md

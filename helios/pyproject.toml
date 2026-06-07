@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "helios"
+version = "6.0.0"
+description = "Hybrid architecture personal life management engine"
+requires-python = ">=3.11"
+dependencies = [
+    "pyyaml",
+    "requests",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-timeout",
+    "pytest-xdist",
+]
+dashboard = [
+    "fastapi",
+    "httpx",
+    "uvicorn",
+]
+collectors = [
+    "watchdog",
+    "spotipy",
+]
+"collectors.icloud" = [
+    "pyicloud",
+]
+llm = [
+    "openai",
+]
+
+[project.scripts]
+helios = "helios.main:main"
+
+[tool.setuptools.packages.find]
+include = ["helios*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
