@@ -5,6 +5,8 @@ import json, os
 from datetime import datetime
 
 class MoodModule(BaseMod):
+    encrypted_state = True  # Mood data is PII
+
     MODULE_MANIFEST = {
         **BaseMod.MODULE_MANIFEST,
         "name": "mood",

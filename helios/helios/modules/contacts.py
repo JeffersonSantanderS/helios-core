@@ -4,6 +4,8 @@ from typing import Any
 import json, os
 
 class ContactsModule(BaseMod):
+    encrypted_state = True  # Personal contacts are PII
+
     MODULE_MANIFEST = {
         **BaseMod.MODULE_MANIFEST,
         "name": "contacts",

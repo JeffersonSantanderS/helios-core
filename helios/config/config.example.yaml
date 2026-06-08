@@ -1,28 +1,26 @@
-# Helios v6 Configuration — Example
+# Helios v6 Example Configuration
 # ============================================================================
-# Copy to config/config.yaml and fill in your values.
-# All secrets should be set via environment variables or ~/.hermes/.env,
-# never in this file.
+# Copy this to config.yaml and customize for your environment.
+# No secrets should be stored here — use environment variables or ~/.hermes/.env
 # ============================================================================
 
 # ─── LLM Bridge ──────────────────────────────────────────────────────────────
 llm:
-  provider: ollama                     # ollama | openai | deepseek | anthropic
-  model: llama3:8b                      # ANY model — swap freely
-  api_key: ""                           # Set via HELIOS_LLM_KEY env var
-  base_url: "http://localhost:11434/v1" # Your local or remote LLM endpoint
+  provider: deepseek
+  model: deepseek-v4-flash:cloud
+  api_key: ""  # Set via HELIOS_LLM_API_KEY env var
+  base_url: "http://localhost:11434/v1"
   max_tokens: 2048
   timeout: 30
   daily_cap: 20
 
 # ─── Matrix Integration ────────────────────────────────────────────────────
-# All push delivery routes through matrix_pusher.py.
 matrix:
   enabled: true
   homeserver: "https://matrix.example.org"
   access_token: ""  # Set via MATRIX_ACCESS_TOKEN env var
-  room: ""           # e.g. "!roomid:example.org"
-  dm_user: ""        # e.g. "@user:example.org"
+  room: "!roomid:matrix.example.org"
+  dm_user: "@user:matrix.example.org"
   alerts:
     min_priority_to_post: 1
     min_priority_to_dm: 2
@@ -33,21 +31,10 @@ matrix:
       interrupt: 0xE74C3C
       patterns: 0x9B59B6
 
-# ─── Discord Integration (disabled — replaced by Matrix) ────────────────────
-discord:
-  enabled: false
-  dm:
-    channel_id: ""
-  channels:
-    helios:
-      id: ""
-
 # ─── Channel Adapter System ───────────────────────────────────────────────
-# Normalized outbound delivery.
 channels:
   matrix:
     enabled: true
-    # Matrix config inherited from the top-level matrix: section.
   log:
     enabled: true
     jsonl_path: "~/.hermes/helios/data/channel_log.jsonl"
@@ -60,12 +47,9 @@ modules:
     enabled: true
   calendar:
     enabled: true
-    ha_enabled: true
+    ha_enabled: false
     ha_base_url: "http://homeassistant.local:8123"
-    ha_calendars:
-      - calendar.personal
-      - calendar.holidays
-      - calendar.birthdays
+    ha_calendars: []
     fallback_enabled: true
   contacts:
     enabled: true
@@ -77,6 +61,10 @@ modules:
     enabled: true
   health:
     enabled: true
+  phone_sensors:
+    enabled: true
+    api_url: "http://127.0.0.1:8899"
+    timeout: 10
   nutrition:
     enabled: true
     calorie_target: 2000
@@ -90,7 +78,7 @@ modules:
   work_hours:
     enabled: true
     timezone: "America/Edmonton"
-    anchor_start: "2026-01-01"
+    anchor_start: "2026-05-11"
     period_days: 14
     fixed_start: "07:00"
     start_mode: "fixed"
@@ -102,80 +90,55 @@ modules:
     enabled: true
   tasks:
     enabled: true
-    ha_enabled: true
+    ha_enabled: false
     ha_base_url: "http://homeassistant.local:8123"
-    ha_todos:
-      - todo.my_tasks
+    ha_todos: []
     fallback_enabled: true
   home:
     enabled: true
-    ha_enabled: true
+    ha_enabled: false
     ha_base_url: "http://homeassistant.local:8123"
-    rooms:  # entity_id → physical room mapping (edit here, no code changes)
-      bedroom:
-        motion: ["binary_sensor.bedroom_motion"]
-        illuminance: ["sensor.bedroom_illuminance"]
-        temperature: ["sensor.bedroom_temperature"]
-        lights:
-          - light.bedroom
-      office:
-        motion: ["binary_sensor.office_motion"]
-        illuminance: ["sensor.office_illuminance"]
-        temperature: ["sensor.office_temperature"]
-        lights:
-          - light.desk_lamp
-          - light.ceiling
+    rooms: {}
   system:
     enabled: true
   server:
     enabled: true
+  subscriptions:
+    enabled: true
+    alert_days_before: 3  # Number of days before renewal to send an alert
+    # No additional configuration needed — subscriptions are auto-detected
+    # from Gmail signals. Manual entries can be added via context API.
 
 # ─── Home Assistant Integration ───────────────────────────────────────────────
 home_assistant:
-  enabled: true
+  enabled: false
   base_url: "http://homeassistant.local:8123"
-  # Token loaded from HASS_TOKEN env var
-  health_prefix: "hae.healthsync_"
+  # Token is loaded from ~/.hermes/.env HASS_TOKEN at runtime
+  health_prefix: ""
   health_timeout: 15
   health_stale_hours: 12
-  calendars:
-    enabled: true
-    entities:
-      - calendar.personal
-      - calendar.holidays
-  todo:
-    enabled: true
-    entities:
-      - todo.my_tasks
-  fallbacks:
-    calendar:
-      enabled: true
-      fallback_to: pyicloud
 
-# ─── Dream Engine (autoDream memory consolidation) ──────────────────────────
+# ─── Dream Engine ──────────────────────────────────────────────────────────
 dream_engine:
-  idle_threshold_secs: 600       # 10 min AFK before dreaming
-  dream_interval_secs: 3600      # min time between dream cycles
-  retention_metric_days: 90      # keep metric_snapshots for 90 days
-  retention_focus_days: 30       # keep focus rows for 30 days
-  anomaly_stddev: 2.0            # z-score threshold for anomaly detection
-  anomaly_min_baseline: 7        # need at least 7 days for baseline
+  idle_threshold_secs: 600
+  dream_interval_secs: 3600
+  retention_metric_days: 90
+  retention_focus_days: 30
+  anomaly_stddev: 2.0
+  anomaly_min_baseline: 7
 
-# ─── Priority Engine (candidate ranking) ──────────────────────────────────
-# Modes: shadow | soft_control | priority_dispatch
+# ─── Priority Engine ──────────────────────────────────────────────────────
 priority:
   enabled: true
   mode: shadow
   fail_open: true
   log_all_candidates: true
   export_debug: true
-
   selector:
     max_selected_per_tick: 5
     max_notify_per_tick: 2
     max_dm_per_tick: 1
     max_per_category_per_tick: 1
-
   scoring:
     weights:
       urgency: 1.35
@@ -196,36 +159,10 @@ priority:
       summary: 0.45
       log_only: 0.20
 
-  sources:
-    rules: true
-    home: true
-    module_health: true
-    predictive: false
-    proactive: false
-    daily_intelligence: false
-    llm_requests: false
-
-  safeguards:
-    never_suppress_critical: true
-    never_block_self_healing: true
-    never_block_user_requested_reminders: true
-    quiet_hours_penalty: 0.25
-    driving_penalty: 0.35
-    meeting_penalty: 0.30
-
-  summarizer:
-    enabled: false
-    discord_enabled: false
-    hour: 21
-    window_hours: 24
-
-  soft_control:
-    enabled: false
-
-# ─── Self-Improvement Loop ─────────────────────────────────────────────────
+# ─── Self-Improvement ─────────────────────────────────────────────────────
 self_improvement:
   enabled: true
-  mode: shadow          # shadow | apprentice | active
+  mode: shadow
   min_evidence_count: 3
   max_negative_rate: 0.35
   proposal_interval_minutes: 60

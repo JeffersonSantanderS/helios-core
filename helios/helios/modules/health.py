@@ -18,6 +18,8 @@ logger = logging.getLogger("helios.modules.health")
 
 
 class HealthModule(BaseMod):
+    encrypted_state = True  # Health metrics are PII
+
     MODULE_MANIFEST = {
         **BaseMod.MODULE_MANIFEST,
         "name": "health",

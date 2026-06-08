@@ -42,6 +42,8 @@ class HeliosDB:
         "025_delivery_ledger.sql",
         "026_v6_schema_gaps.sql",
         "027_focus_screen_time.sql",
+        "028_encrypted_state_flag.sql",
+        "029_subscriptions_table.sql",
     ]
 
     def __init__(self, db_path: Optional[str] = None):

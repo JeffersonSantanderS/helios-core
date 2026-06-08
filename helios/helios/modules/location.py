@@ -1,4 +1,3 @@
-import os
 """Helios v6 — Location module (Home Assistant primary, iCloud fallback).
 
 Refactored with:
@@ -27,12 +26,12 @@ CREDS_FILE = DATA_DIR / "icloud_creds.json"
 COOKIE_DIR = os.path.expanduser("~/.hermes/helios-v6/.icloud_session")
 
 # HA config
-HA_BASE_URL = os.environ.get("HOME_ASSISTANT_URL", "") or os.environ.get("HASS_URL", "") or ""
-HA_ENTITY = os.environ.get("ICLOUD_DEVICE_TRACKER", "") or os.environ.get("HA_DEVICE_TRACKER", "")
+HA_BASE_URL = os.environ.get("HOME_ASSISTANT_URL", "") or os.environ.get("HASS_URL", "") or "http://homeassistant.local:8123"
+HA_ENTITY = os.environ.get("HELIOS_LOCATION_ENTITY", "device_tracker.primary_phone")
 
 # Geocode fallback defaults
-DEFAULT_CITY = os.environ.get("HELIOS_DEFAULT_CITY", "")
-DEFAULT_PROVINCE = os.environ.get("HELIOS_DEFAULT_PROVINCE", "")
+DEFAULT_CITY = "Calgary"
+DEFAULT_PROVINCE = "Alberta"
 
 # iCloud fallback
 ICLOUD_POLL_INTERVAL_SEC = 900
@@ -41,12 +40,14 @@ HA_POLL_INTERVAL_SEC = 30
 
 
 class LocationModule(BaseMod):
+    encrypted_state = True  # GPS coordinates are PII
+
     MODULE_MANIFEST = {
         **BaseMod.MODULE_MANIFEST,
         "name": "location",
         "version": "3.1.0",
         "description": "Tracks iPhone GPS via HA (iCloud fallback) with POI dwell detection",
-        "author": "Helios",
+        "author": "Sergio",
         "collectors": ["icloud_location_sync.json"],
         "dependencies": ["requests"],
         "priority": 1,
@@ -266,7 +267,7 @@ class LocationModule(BaseMod):
                 [
                     "curl", "-s",
                     f"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json&zoom=10",
-                    "-H", f"User-Agent: Helios-v6/3.1 ({os.environ.get('HELIOS_CONTACT_EMAIL', 'helios@localhost')})",
+                    "-H", "User-Agent: Helios-v6/3.1",
                     "--connect-timeout", "5", "--max-time", "10",
                 ],
                 capture_output=True, text=True, timeout=15,
