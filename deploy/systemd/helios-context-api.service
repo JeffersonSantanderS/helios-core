@@ -1,0 +1,23 @@
+[Unit]
+Description=Helios Context API — privacy-safe agent context endpoint
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/jefferson/.hermes/hermes-agent/venv/bin/python3 -m helios.context_api.app
+WorkingDirectory=%h/.hermes/helios-v6/helios
+Restart=on-failure
+RestartSec=5
+
+# Environment
+Environment=HELIOS_HOME=%h/.hermes/helios
+Environment=PYTHONPATH=%h/.hermes/helios-v6/helios
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=%h/.hermes/.env
+
+# Security — bind to localhost only, no root needed
+# The app binds to 127.0.0.1:8200 by default
+# Do NOT change the bind address to 0.0.0.0 without authentication
+
+[Install]
+WantedBy=default.target
